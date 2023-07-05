@@ -58,6 +58,6 @@ input is the file that obtained from above step, output is two file, one output.
 
 ### step 7：cacualted genetic diversity
 
-python3 Theta_calc_4.py input col1 col2 output
+python3 Theta_calc.py input col1 col2 output
 
 input file is k-mer matrix, col1 is begin of colum, and col2 is stop of colum, output is value of Theta.
