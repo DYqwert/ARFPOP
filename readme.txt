@@ -20,7 +20,9 @@ The input file is the output file of step1, and the output file is a m X n matri
 
 
 ### optional step 3: The user can based on filtering out some k-mer or not according to your own needs. The reason for filtering can consider our study or Fan et al. 2015.
+python3 filtering.py input h1 n output 
 
+The input file is the output file of step2, h1 is the copy number，a k-mer will be filtered out when the copy number of k-mer above h1, n is the number of sample，the output file only contained the k-mers that copy number less than h1. 
 
 ### step 4: pairwise_distance.py is a program to caculated the distance between pairwise sequences based on the formula 
 
@@ -34,30 +36,28 @@ input file is the k-mer matrix, and the output file is a input file for MEGA (in
 ### step 6: prepare the input file for LD pruning and population structure analyses
 
 #generation of unique k-mer matix 
-python3 unique_kmermatrix.py input output 
-input file is the output file of step 2, and the output file the matrix only containing the k-mer with two copy number (0 and 1).  
+python3 filtering.py input 2 n output 
+input file is the output file of step 2, h1 is set to 2, the output file the matrix only containing the k-mer with two copy number (0 and 1).  
 
 #slection of reference k-mers
 python3 select_referece.py input column output
-input file output file of above step, column is the position of reference in the matrix, output file is the matrix only containing the k-mer only present in reference.
+input file output file of above step, column is the position of reference, output is the a matix of the k-mers that present in selected reference.
 
-#generation of .map file and .ped file 
-python3 map.py input1 input2 output
-input1 is the output file of above step, input2 in the output file of step 1, output is the .map file. In the .map file, the location of k-mer is its extracted order in the sequence.  
-python3 ped.py input output
-input1 is the output file of above step, output is the .ped file
+#added position information of k-mers
 
-#The following LD pruning is performed by PLINK.
-#After LD pruning, the population structure analyses will be performed by ADMIXTURE.
+python3 loction.py input1 input2 output
 
-### step 7: Caculated the genetic diversity in a group
+input1 is the output file of step 1，this file contained the information of k-mer extracted order in genome. input2 is the k-mer matrix obtained from above step, output file is also a k-mer matrix.
 
-python3 diversity.py input output
+#generated .ped and .maf file
+python3 trans_pm.py input output
 
-input is the k-mer matrix, output is the value of θπ
+input is the file that obtained from above step, output is two file, one output.ped and the other is output.map
 
-### step 8: Indentification of a large frament variants among genome
+#the remaining step for LD pruning were performed by Plink, the structure was analyzed using admixture.
 
-python3 identify_indel.py input output
+### step 7：cacualted genetic diversity
 
-The input file is the unique k-mer matrix, and the output is the assemble fragment using pairwise adjacant k-mers. The size of k-mer fragment is large than 2k-1 bp is the potential indel fragment.  
+python3 Theta_calc_4.py input col1 col2 output
+
+input file is k-mer matrix, col1 is begin of colum, and col2 is stop of colum, output is value of Theta.
