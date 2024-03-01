@@ -1,7 +1,7 @@
 #!/home/ribozyme/bin/anaconda3/bin/python3
 # encoding:utf-8
 
-import sys, os,time
+import sys, os,time 
 
 if __name__ == '__main__':
     cv_txt_directory = sys.argv[1]
