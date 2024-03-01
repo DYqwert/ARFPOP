@@ -10,8 +10,6 @@ KNCDir=$3
 h1=$4
 n=$5
 corenumber=$6
-col1=$7
-col2=$8
 
 ##echo "$0";
 echo "working dir: $1";
@@ -20,8 +18,6 @@ echo "KNCDir: $3";
 echo "h1: $4";
 echo "n: $5";
 echo "cornumber: $6";
-echo "col1: $7";
-echo "col2: $8";
 
 mkdir ${KNCDir}
 for file_a in ${ProjectDir}/*
@@ -38,10 +34,10 @@ python3 filtering.py Kmermatrix ${h1} ${n} Kmermatrix_${h1}_${n}_filtering
 echo "filtering out some k-mers ...done"
 
 python3 pairwise_distance.py Kmermatrix_${h1}_${n}_filtering ${corenumber}
-echo "caculated the distance between pairwise sequences based on the formula ...done"
+echo "caculating the distance between pairwise sequences based on the formula ...done"
 
-python3 Theta_calc.py Kmermatrix_${h1}_${n}_filtering ${col1} ${col2} Theta
-echo "cacualted genetic diversity ...done"
+python3 Theta_calc.py Kmermatrix_${h1}_${n}_filtering ${corenuber} ${k} Theta
+echo "cacualting genetic diversity ...done"
 
 python3 trans_pm.py Kmermatrix_${h1}_${n}_filtering
 
